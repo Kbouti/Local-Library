@@ -1,24 +1,29 @@
+// First we import (require) useful node libraries that we already downloaded using npm
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// Then we import our routers from the routes folder. Currently 2 routes. 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+// Finally create the app object
 var app = express();
 
-// view engine setup
+// Use our app object to set up the view (template) engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// These functions add the middleware libraries that we imported above into the request handling chain. 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// After middleware we add route handling for our previously imported routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

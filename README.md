@@ -12,3 +12,4 @@ npm install -g nodemon
 We've installed nodemon and written a script. Now to start (and watch) the server we only need to run: 
 npm run devstart
 
+Next we updated the versions of all our dependencies in package.json
