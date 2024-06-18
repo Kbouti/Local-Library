@@ -44,3 +44,11 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+//  ************************************************************************************************************************************************************************
+// Connection string for mongoDB:
+// mongodb+srv://kevinfboutilier:AMRPU6oeOZv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary
+// otherwise try:
+// mongodb+srv://kevinfboutilier:AMRPU6oeOZv8fCKW@locallibrary.o1xynnt.mongodb.net/local_library?retryWrites=true&w=majority&appName=localLibrary
+// It's possible the capital O in the password above is a zero instead...
+//  ************************************************************************************************************************************************************************
