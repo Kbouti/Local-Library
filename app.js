@@ -12,6 +12,22 @@ var usersRouter = require('./routes/users');
 // Finally create the app object
 var app = express();
 
+
+// Set up mongoose connection
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+const mongoDB = "mongodb+srv://kevinfboutilier:AMRPU6oeOZv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+}
+
+
+
+
+
+
 // Use our app object to set up the view (template) engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
