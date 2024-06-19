@@ -5,7 +5,7 @@ $ DEBUG=express-localLibrary-tutorial:* npm start
 
 
 Next up: Installing nodemon for a "watch" style development environment. 
-npm install --save-dev demon
+npm install --save-dev nodemon
 To install globally, then run: 
 npm install -g nodemon
 
