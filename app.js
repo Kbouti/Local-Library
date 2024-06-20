@@ -17,13 +17,7 @@ var app = express();
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB =
-  "mongodb+srv://kevinfboutilier:AMRPU6oeOZv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
-// ****************************************************************************************************************************************************
-// ****************************************************************************************************************************************************
-// I think there's a problem with the connection string in the above connection string. Shoule be:
-//   "mongodb+srv://kevinfboutilier:AMRPU6oe0Zv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
-// ****************************************************************************************************************************************************
-// ****************************************************************************************************************************************************
+  "mongodb+srv://kevinfboutilier:AMRPU6oe0Zv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
