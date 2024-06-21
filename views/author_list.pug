@@ -8,12 +8,7 @@ block content
       each author in author_list
         li 
             a(href=author.url) #{author.name}
-            if author.date_of_birth && author.date_of_death
-                span  (#{author.birthDate_formatted} - #{author.deathDate_formatted})
-            else if author.date_of_birth 
-                span  (#{author.birthDate_formatted} - unknown )
-            else 
-                span  (unknown)
+            span  #{author.lifespan}
 
 
   else
