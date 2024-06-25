@@ -155,8 +155,6 @@ exports.book_create_post = [
   }),
 ];
 
-// ************************************************************************************************
-
 // Display book delete form on GET.
 exports.book_delete_get = asyncHandler(async (req, res, next) => {
   // Get details of book and all book instances
@@ -198,8 +196,6 @@ exports.book_delete_post = asyncHandler(async (req, res, next) => {
     res.redirect("/catalog/books");
   }
 });
-
-// ************************************************************************************************
 
 // Display book update form on GET.
 exports.book_update_get = asyncHandler(async (req, res, next) => {
