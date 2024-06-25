@@ -34,9 +34,8 @@ exports.index = asyncHandler(async (req, res, next) => {
 });
 
 // There's an issue somewhere but I don't know what it is.....
-// Our page template is loading but instead of getting data we're getting a message: 
+// Our page template is loading but instead of getting data we're getting a message:
 // Operation `books.countDocuments()` buffering timed out after 10000ms
-
 
 // Display list of all books.
 exports.book_list = asyncHandler(async (req, res, next) => {
@@ -70,7 +69,6 @@ exports.book_detail = asyncHandler(async (req, res, next) => {
   });
 });
 
-
 // Display book create form on GET.
 exports.book_create_get = asyncHandler(async (req, res, next) => {
   // Get all authors and genres, which we can use for adding to our book.
@@ -85,7 +83,6 @@ exports.book_create_get = asyncHandler(async (req, res, next) => {
     genres: allGenres,
   });
 });
-
 
 // Handle book create on POST.
 exports.book_create_post = [
@@ -158,16 +155,35 @@ exports.book_create_post = [
   }),
 ];
 
+// ************************************************************************************************
 
 // Display book delete form on GET.
 exports.book_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Book delete GET");
+
+  // Get details of book and all book instances
+  const [book, allBookInstances] = await Promise.all([
+    Book.findById(req.params.id).exec(),
+    BookInstance.find({ book: req.params.id }, "imprint status").exec(),
+  ]);
+
+  if (book === null) {
+    // no results
+    res.redirect("/catalog/books");
+  }
+
+  res.render("book_delete", {
+    title: "Delete Book",
+    book: book,
+    book_instances: allBookInstances,
+  });
 });
 
 // Handle book delete on POST.
 exports.book_delete_post = asyncHandler(async (req, res, next) => {
   res.send("NOT IMPLEMENTED: Book delete POST");
 });
+
+// ************************************************************************************************
 
 // Display book update form on GET.
 exports.book_update_get = asyncHandler(async (req, res, next) => {
@@ -197,7 +213,6 @@ exports.book_update_get = asyncHandler(async (req, res, next) => {
     book: book,
   });
 });
-
 
 // Handle book update on POST.
 exports.book_update_post = [
@@ -272,4 +287,3 @@ exports.book_update_post = [
     }
   }),
 ];
-
