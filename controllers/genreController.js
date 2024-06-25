@@ -6,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 
 // Display list of all Genre.
 exports.genre_list = asyncHandler(async (req, res, next) => {
-  const allGenres = await Genre.find().sort({name: 1}).exec();
+  const allGenres = await Genre.find().sort({ name: 1 }).exec();
   res.render("genre_list", {
     title: "Genre List",
     genre_list: allGenres,
@@ -34,12 +34,10 @@ exports.genre_detail = asyncHandler(async (req, res, next) => {
   });
 });
 
-
 // Display Genre create form on GET.
 exports.genre_create_get = (req, res, next) => {
   res.render("genre_form", { title: "Create Genre" });
 };
-
 
 // Handle Genre create on POST.
 exports.genre_create_post = [
@@ -83,16 +81,41 @@ exports.genre_create_post = [
   }),
 ];
 
+// ************************************************************************************************
+// Below is our attempted genre_delete controller
+// ************************************************************************************************
 
 // Display Genre delete form on GET.
 exports.genre_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Genre delete GET");
+  // First we get details of the genre and any included books. (Copied from delete author)
+  const [genre, allBooksInGenre] = await Promise.all([
+    Genre.findById(req.params.id).exec(),
+    Book.find({ genre: req.params.id }, "title summary").exec(),
+  ]);
+
+  if (genre === null) {
+    // No results.
+    res.redirect("/catalog/genres");
+  }
+
+  res.render("genre_delete", {
+    title: "Delete Genre",
+    genre: genre,
+    genre_books: allBooksInGenre,
+  });
 });
 
+// ************************************************************************************************
+// Next up genre_delete_post:
+// ************************************************************************************************
 // Handle Genre delete on POST.
 exports.genre_delete_post = asyncHandler(async (req, res, next) => {
   res.send("NOT IMPLEMENTED: Genre delete POST");
 });
+
+// ************************************************************************************************
+
+
 
 // Display Genre update form on GET.
 exports.genre_update_get = asyncHandler(async (req, res, next) => {
