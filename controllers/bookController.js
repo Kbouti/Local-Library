@@ -197,6 +197,9 @@ exports.book_delete_post = asyncHandler(async (req, res, next) => {
   }
 });
 
+
+
+// ************************************************************************************************
 // Display book update form on GET.
 exports.book_update_get = asyncHandler(async (req, res, next) => {
   // Get book, authors and genres for form.

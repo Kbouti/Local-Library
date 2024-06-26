@@ -9,11 +9,13 @@ block content
       select#book.form-control(name='book' required)
         option(value='') --Please select a book--
         for book in book_list
-          if selected_book==book._id.toString()
-            option(value=book._id, selected) #{book.title}
+          if bookInstance
+            if book._id.toString()==bookInstance.book._id.toString()
+              option(value=book._id, selected) #{book.title}
+            else
+              option(value=book._id) #{book.title}
           else
             option(value=book._id) #{book.title}
-
     div.form-group
       label(for='imprint') Imprint:
       input#imprint.form-control(type='text' placeholder='Publisher and date information' name='imprint' required value=(undefined===bookinstance ? '' : bookinstance.imprint) )

@@ -125,8 +125,6 @@ exports.bookinstance_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display BookInstance update form on GET.
 exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
-  // res.send("NOT IMPLEMENTED: BookInstance update GET");
-
   const [bookInstance, allBooks] = await Promise.all([
     BookInstance.findById(req.params.id).exec(),
     Book.find().sort({title: 1}).exec()
@@ -141,6 +139,7 @@ exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
 
   res.render("bookInstance_form", {
     title: "Update Book Instance",
+    bookInstance: bookInstance,
     book_list: allBooks,
   });
 });
