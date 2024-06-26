@@ -22,6 +22,23 @@ AuthorSchema.virtual("name").get(function () {
   return fullname;
 });
 
+
+AuthorSchema.virtual("formattedBirthDate").get(function () {
+  let formattedBirthDate =  DateTime.fromJSDate(
+    this.date_of_birth
+  ).toLocaleString(DateTime.DATE_MED);
+  return formattedBirthDate
+})
+
+AuthorSchema.virtual("formattedDeathDate").get(function () {
+  let formattedDeathDate =  DateTime.fromJSDate(
+    this.date_of_death
+  ).toLocaleString(DateTime.DATE_MED);
+  return formattedDeathDate
+})
+
+
+
 // ***********************************************************************************************
 // Next they want us to create a new virtual property for lifespan, just like they've done for full name.
 AuthorSchema.virtual("lifespan").get(function () {
