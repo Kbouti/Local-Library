@@ -22,38 +22,41 @@ AuthorSchema.virtual("name").get(function () {
   return fullname;
 });
 
-
 AuthorSchema.virtual("formattedBirthDate").get(function () {
-  let formattedBirthDate =  DateTime.fromJSDate(
-    this.date_of_birth
-  ).toLocaleString(DateTime.DATE_MED);
-  return formattedBirthDate
-})
+  if (!this.date_of_birth) return undefined;
+  let birthDate = this.date_of_birth;
+  let year = birthDate.toLocaleString("default", { year: "numeric" });
+  let month = birthDate.toLocaleString("default", { month: "2-digit" });
+  let day = birthDate.toLocaleString("default", { day: "2-digit" });
+  let formattedDate = year + "-" + month + "-" + day;
+  return formattedDate;
+});
 
 AuthorSchema.virtual("formattedDeathDate").get(function () {
-  let formattedDeathDate =  DateTime.fromJSDate(
-    this.date_of_death
-  ).toLocaleString(DateTime.DATE_MED);
-  return formattedDeathDate
-})
-
-
+  if (!this.date_of_death) return undefined;
+  let deathDate = this.date_of_death;
+  let year = deathDate.toLocaleString("default", { year: "numeric" });
+  let month = deathDate.toLocaleString("default", { month: "2-digit" });
+  let day = deathDate.toLocaleString("default", { day: "2-digit" });
+  let formattedDate = year + "-" + month + "-" + day;
+  return formattedDate;
+});
 
 // ***********************************************************************************************
 // Next they want us to create a new virtual property for lifespan, just like they've done for full name.
 AuthorSchema.virtual("lifespan").get(function () {
   let birthDate_formatted = "??";
   let deathDate_formatted = "??";
-// let lifespan
+  // let lifespan
   if (this.date_of_birth && this.date_of_death) {
-    console.log(`Has both dates`)
+    console.log(`Has both dates`);
     birthDate_formatted = DateTime.fromJSDate(
       this.date_of_birth
     ).toLocaleString(DateTime.DATE_MED);
     deathDate_formatted = DateTime.fromJSDate(
       this.date_of_death
     ).toLocaleString(DateTime.DATE_MED);
-    console.log(`birthDate_formatted: ${birthDate_formatted}`)
+    console.log(`birthDate_formatted: ${birthDate_formatted}`);
   } else if (this.date_of_birth) {
     birthDate_formatted = DateTime.fromJSDate(
       this.date_of_birth
