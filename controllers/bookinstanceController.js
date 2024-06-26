@@ -121,8 +121,6 @@ exports.bookinstance_delete_post = asyncHandler(async (req, res, next) => {
 
 });
 
-// ************************************************************************************************
-
 // Display BookInstance update form on GET.
 exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
   const [bookInstance, allBooks] = await Promise.all([
@@ -146,6 +144,26 @@ exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
 // ************************************************************************************************
 
 // Handle bookinstance update on POST.
-exports.bookinstance_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: BookInstance update POST");
-});
+exports.bookinstance_update_post = [
+  // Convert the genre to an array.
+  (req, res, next) => {
+    if (!Array.isArray(req.body.genre)) {
+      req.body.genre =
+        typeof req.body.genre === "undefined" ? [] : [req.body.genre];
+    }
+    next();
+  },
+
+  // Validate and sanitize fields
+  body("book.*").escape(),
+  body("imprint", "Imprint must not be empty.")
+    .trim()
+    .isLength({min:1})
+    .escape(),
+  body("date", "Date can not be empty").escape(),
+  body("status", "Status can not be empty").escape(),
+
+
+]
+
+
