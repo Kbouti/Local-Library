@@ -13,3 +13,7 @@ We've installed nodemon and written a script. Now to start (and watch) the serve
 npm run devstart
 
 Next we updated the versions of all our dependencies in package.json
+
+End of project:
+We Created an account for glitch and attempted to deploy site. It didn't seem to work..... Site should be accessible at: 
+https://intelligent-skillful-patio.glitch.me/
