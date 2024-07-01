@@ -41,7 +41,13 @@ mongoose.set("strictQuery", false);
 const dev_db_url =
 
 // This is the connection string I got from Mongo:
-  "mongodb+srv://kevinfboutilier:AMRPU6oe0Zv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
+  "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
+
+  
+  
+  // **********************************************************************************************************************************************************
+  // NEW DATABASE PASSWORD^^
+  // **********************************************************************************************************************************************************
 
   // This is the connection string from the lesson plan, but with my details used. I probably should be using the one above.... But that didn't work either
   // "mongodb+srv://kevinfboutilier:AMRPU6oe0Zv8fCKW@cluster0.lz91hw2.mongodb.net/local_library?retryWrites=true&w=majority";
