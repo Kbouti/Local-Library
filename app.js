@@ -43,8 +43,7 @@ const dev_db_url =
 // This is the connection string I got from Mongo:
   "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
 
-  
-  
+  // "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary"
   // **********************************************************************************************************************************************************
   // NEW DATABASE PASSWORD^^
   // **********************************************************************************************************************************************************
