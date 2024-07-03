@@ -16,4 +16,8 @@ Next we updated the versions of all our dependencies in package.json
 
 End of project:
 We Created an account for glitch and attempted to deploy site. It didn't seem to work..... Site should be accessible at: 
+https://boatneck-spectacled-yacht.glitch.me
+
+
+Archived site:
 https://intelligent-skillful-patio.glitch.me/
