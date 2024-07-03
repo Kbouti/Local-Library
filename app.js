@@ -48,6 +48,12 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 // **********************************************************************************************************************************************************
+// So what they want me to do next is create a new database for production and store it's connection string in the ".env" file accessible on glitch. 
+// That way, the production code isn't here in this repository, it's safely stored on glitch.
+// The code above says: If we have a prduction database, use data from that. Otherwise, here's our unencrypted development connection string. 
+
+
+// **********************************************************************************************************************************************************
 
 // Use our app object to set up the view (template) engine
 app.set("views", path.join(__dirname, "views"));
