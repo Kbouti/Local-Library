@@ -38,19 +38,13 @@ app.use(
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 
-const dev_db_url =
-
-// This is the connection string I got from Mongo:
-  "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
-
-  // "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary"
   // **********************************************************************************************************************************************************
-  // NEW DATABASE PASSWORD^^
+  // We use the below syntax to hide our connection string behind an "environment variable"
+  // Otherwise we'd just declare const mongoDB = <connection string>
+// const dev_db_url = "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
+// const mongoDB = process.env.MONGODB_URI || dev_db_url;
   // **********************************************************************************************************************************************************
 
-  // This is the connection string from the lesson plan, but with my details used. I probably should be using the one above.... But that didn't work either
-  // "mongodb+srv://kevinfboutilier:AMRPU6oe0Zv8fCKW@cluster0.lz91hw2.mongodb.net/local_library?retryWrites=true&w=majority";
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -95,9 +89,6 @@ app.use(function (err, req, res, next) {
 module.exports = app;
 
 //  ************************************************************************************************************************************************************************
-// Connection string for mongoDB:
+// OLD Connection string for mongoDB:
 // mongodb+srv://kevinfboutilier:AMRPU6oe0Zv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary
 //  ************************************************************************************************************************************************************************
-
-// populated mongodb with:
-// node populatedb 'mongodb+srv://kevinfboutilier:AMRPU6oe0Zv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary'
