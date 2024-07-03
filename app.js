@@ -34,22 +34,20 @@ app.use(
   })
 );
 
+// **********************************************************************************************************************************************************
+
 // Set up mongoose connection
+// const mongoDB = "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-
-  // **********************************************************************************************************************************************************
-  // We use the below syntax to hide our connection string behind an "environment variable"
-  // Otherwise we'd just declare const mongoDB = <connection string>
-// const dev_db_url = "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
-// const mongoDB = process.env.MONGODB_URI || dev_db_url;
-  // **********************************************************************************************************************************************************
-const mongoDB = "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
-
+const dev_db_url =
+  "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);
 }
+// **********************************************************************************************************************************************************
 
 // Use our app object to set up the view (template) engine
 app.set("views", path.join(__dirname, "views"));
