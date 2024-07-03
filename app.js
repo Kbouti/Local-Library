@@ -44,7 +44,7 @@ mongoose.set("strictQuery", false);
 // const dev_db_url = "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
 // const mongoDB = process.env.MONGODB_URI || dev_db_url;
   // **********************************************************************************************************************************************************
-
+const mongoDB = "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
 
 main().catch((err) => console.log(err));
 async function main() {
