@@ -38,6 +38,14 @@ app.use(
 
 // Set up mongoose connection
 // const mongoDB = "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
+
+// Attempt to specify database:
+// "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/localLibrary?retryWrites=true&w=majority&appName=localLibrary"
+// ^^This worked!!!!! This is the string I needed to populate the localLibrary database on mongo. 
+// Since the one I was using before didn't specify the database it created a new one named test. 
+
+// According to Mao this is still wrong, we'll need to setup the .env file and store our sensitive information there. 
+
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const dev_db_url =
