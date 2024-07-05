@@ -14,7 +14,7 @@ const http = require("http");
 
 // Establish default development port on 3000, production port stored in environment variable
 let port = normalizePort(process.env.DEV_PORT || "3000");
-if ((process.env.STATUS = "production")) port = process.env.PROD_PORT;
+if ((process.env.STATUS === "production")) port = process.env.PROD_PORT;
 app.set("port", port);
 
 /**
