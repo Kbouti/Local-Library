@@ -49,9 +49,22 @@ app.use(
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const dev_db_url =
-  "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
+// const dev_db_url =
+//   "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/localLibrary?retryWrites=true&w=majority&appName=localLibrary";
+let mongoDB
+if (process.env.STATUS === "development") {
+  console.log(`Using development database`);
+  mongoDB = process.env.DEV_URI}
+else if (process.env.STATUS === "production"){
+  console.log(`Using production database`);
+  mongoDB = process.env.PROD_URI
+} else {
+  console.log(error);
+  console.log('process.env.STATUS is neither development or production.')
+}
+
+
+// const mongoDB = process.env.MONGODB_URI || dev_db_url;
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);

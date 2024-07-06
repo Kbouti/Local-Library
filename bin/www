@@ -19,7 +19,7 @@ app.set("port", port);
 
 // ****************************************************************************************************************
 // ****************************************************************************************************************
-// So basically at this point we should be able to establish both a development and production cluster, with two different connection strings, and declare them both in the .env file. 
+// So basically at this point we should be able to establish both a development and production databse, with two different connection strings, and declare them both in the .env file. 
 // We can tell the app to use one database or the other based on what mode we're in, and both values will be securely stored in .env. 
 // While I could declare both a production and a development database, they'd both be nested in my one free cluster, and therefore use the same login credentials. 
 // ****************************************************************************************************************
