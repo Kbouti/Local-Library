@@ -37,24 +37,18 @@ app.use(
 
 // **********************************************************************************************************************************************************
 
-// Set up mongoose connection
-// const mongoDB = "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary";
+// Connection string template for Odin cluster: 
+// mongodb+srv://kevinfboutilier:<password>@firstcluster.busyfol.mongodb.net/<database>?retryWrites=true&w=majority&appName=firstCluster
 
-// Attempt to specify database:
-// "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/localLibrary?retryWrites=true&w=majority&appName=localLibrary"
-// ^^This worked!!!!! This is the string I needed to populate the localLibrary database on mongo. 
-// Since the one I was using before didn't specify the database it created a new one named test. 
 
-// According to Mao this is still wrong, we'll need to setup the .env file and store our sensitive information there. 
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-// const dev_db_url =
-//   "mongodb+srv://kevinfboutilier:bKI3lS10W9aFwvRc@locallibrary.o1xynnt.mongodb.net/localLibrary?retryWrites=true&w=majority&appName=localLibrary";
 let mongoDB
 if (process.env.STATUS === "development") {
   console.log(`Using development database`);
-  mongoDB = process.env.DEV_URI}
+  mongoDB = process.env.DEV_URI
+}
 else if (process.env.STATUS === "production"){
   console.log(`Using production database`);
   mongoDB = process.env.PROD_URI
