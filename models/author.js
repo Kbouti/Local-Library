@@ -47,9 +47,7 @@ AuthorSchema.virtual("formattedDeathDate").get(function () {
 AuthorSchema.virtual("lifespan").get(function () {
   let birthDate_formatted = "??";
   let deathDate_formatted = "??";
-  // let lifespan
   if (this.date_of_birth && this.date_of_death) {
-    console.log(`Has both dates`);
     birthDate_formatted = DateTime.fromJSDate(
       this.date_of_birth
     ).toLocaleString(DateTime.DATE_MED);
