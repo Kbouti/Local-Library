@@ -27,11 +27,25 @@ app.use(limiter);
 
 // Add helmet to the middleware chain.
 // Set CSP headers to allow our Bootstrap and Jquery to be served
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+//     },
+//   })
+// );
+
+
+// *********************************************************************************************************
+// We're getting an error related to helmet's contentSecurityPolicy (csp). Below is my attempt to turn that feature off, it didn't work. Still got the same error. 
+// Since this is the only error we're getting I think it's why it won't deploy on glitch. 
+// If we fix this and it still won't deploy then perhaps we try railway. 
+// **NOTE:** 
+// Error isn't consistent? for a while it was only showing in "all authors" page. ???
+
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
-    },
+  helmet({
+    contentSecurityPolicy: false
   })
 );
 
