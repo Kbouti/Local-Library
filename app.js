@@ -27,13 +27,13 @@ app.use(limiter);
 
 // Add helmet to the middleware chain.
 // Set CSP headers to allow our Bootstrap and Jquery to be served
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
-//     },
-//   })
-// );
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  })
+);
 
 
 // *********************************************************************************************************
@@ -43,11 +43,11 @@ app.use(limiter);
 // **NOTE:** 
 // Error isn't consistent? for a while it was only showing in "all authors" page. ???
 
-app.use(
-  helmet({
-    contentSecurityPolicy: false
-  })
-);
+// app.use(
+//   helmet({
+//     contentSecurityPolicy: false
+//   })
+// );
 
 // **********************************************************************************************************************************************************
 
