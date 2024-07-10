@@ -11,7 +11,7 @@ const usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog"); //import routes for "catalog" area of site
 const compression = require("compression");
 const helmet = require("helmet");
-const dotenv = require('dotenv').config();
+const dotenv = require("dotenv").config();
 
 // Finally create the app object
 const app = express();
@@ -35,13 +35,21 @@ app.use(
   })
 );
 
+//
 
 // *********************************************************************************************************
-// We're getting an error related to helmet's contentSecurityPolicy (csp). Below is my attempt to turn that feature off, it didn't work. Still got the same error. 
-// Since this is the only error we're getting I think it's why it won't deploy on glitch. 
-// If we fix this and it still won't deploy then perhaps we try railway. 
-// **NOTE:** 
+// We're getting an error related to helmet's contentSecurityPolicy (csp). Below is my attempt to turn that feature off, it didn't work. Still got the same error.
+// Since this is the only error we're getting I think it's why it won't deploy on glitch.
+// If we fix this and it still won't deploy then perhaps we try railway.
+// **NOTE:**
 // Error isn't consistent? for a while it was only showing in "all authors" page. ???
+
+// From the debugger:
+// Error while fetching an original source: unsupported protocol for sourcemap request webpack:///src/contentScripts/prepareInjection.js
+
+// Things I tried but that didn't work:
+
+// app.use(helmet())
 
 // app.use(
 //   helmet({
@@ -49,28 +57,32 @@ app.use(
 //   })
 // );
 
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net", "script-src-elem", "elem", "webpack:///src/contentScripts/prepareInjection.js"],
+//     },
+//   })
+// );
+
 // **********************************************************************************************************************************************************
 
-// Connection string template for Odin cluster: 
+// Connection string template for Odin cluster:
 // mongodb+srv://kevinfboutilier:<password>@firstcluster.busyfol.mongodb.net/<database>?retryWrites=true&w=majority&appName=firstCluster
-
-
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-let mongoDB
+let mongoDB;
 if (process.env.STATUS === "development") {
   console.log(`Using development database`);
-  mongoDB = process.env.DEV_URI
-}
-else if (process.env.STATUS === "production"){
+  mongoDB = process.env.DEV_URI;
+} else if (process.env.STATUS === "production") {
   console.log(`Using production database`);
-  mongoDB = process.env.PROD_URI
+  mongoDB = process.env.PROD_URI;
 } else {
   console.log(error);
-  console.log('process.env.STATUS is neither development or production.')
+  console.log("process.env.STATUS is neither development or production.");
 }
-
 
 // const mongoDB = process.env.MONGODB_URI || dev_db_url;
 main().catch((err) => console.log(err));
@@ -78,10 +90,9 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 // **********************************************************************************************************************************************************
-// So what they want me to do next is create a new database for production and store it's connection string in the ".env" file accessible on glitch. 
+// So what they want me to do next is create a new database for production and store it's connection string in the ".env" file accessible on glitch.
 // That way, the production code isn't here in this repository, it's safely stored on glitch.
-// The code above says: If we have a prduction database, use data from that. Otherwise, here's our unencrypted development connection string. 
-
+// The code above says: If we have a prduction database, use data from that. Otherwise, here's our unencrypted development connection string.
 
 // **********************************************************************************************************************************************************
 
