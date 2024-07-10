@@ -43,6 +43,8 @@ app.use(
 // If we fix this and it still won't deploy then perhaps we try railway.
 // **NOTE:**
 // Error isn't consistent? for a while it was only showing in "all authors" page. ???
+// When using chrome the error is:
+// Unchecked runtime.lastError: The message port closed before a response was received
 
 // From the debugger:
 // Error while fetching an original source: unsupported protocol for sourcemap request webpack:///src/contentScripts/prepareInjection.js
