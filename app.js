@@ -15,7 +15,7 @@ const helmet = require("helmet");
 
 // ***********************************************************************************************
 const dotenv = require("dotenv").config();
-// The above line does not appear in the mdn tutorial code
+// The above line does not appear in the mdn tutorial code, but is necessary to read from the .env file
 // ***********************************************************************************************
 
 // Finally create the app object
