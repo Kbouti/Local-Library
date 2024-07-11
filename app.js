@@ -13,6 +13,8 @@ const catalogRouter = require("./routes/catalog"); //import routes for "catalog"
 const compression = require("compression");
 const helmet = require("helmet");
 
+const common = require("./node_modules/common")
+
 // ***********************************************************************************************
 const dotenv = require("dotenv").config();
 // The above line does not appear in the mdn tutorial code, but is necessary to read from the .env file
