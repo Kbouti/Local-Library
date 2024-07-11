@@ -11,8 +11,11 @@ const usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog"); //import routes for "catalog" area of site
 const compression = require("compression");
 const helmet = require("helmet");
-const dotenv = require("dotenv").config();
 
+// ***********************************************************************************************
+const dotenv = require("dotenv").config();
+// The above line does not appear in the mdn tutorial code
+// ***********************************************************************************************
 
 // Finally create the app object
 const app = express();
@@ -23,6 +26,10 @@ const limiter = RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
   max: 20,
 });
+// ***********************************************************************************************
+// Max is 10 in mdn example
+// ***********************************************************************************************
+
 // Apply rate limiter to all requests
 app.use(limiter);
 
@@ -108,6 +115,10 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+
+// This is where the helmet code is called in the example
+
 
 app.use(compression()); // Compress all routes
 
