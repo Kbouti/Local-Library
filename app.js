@@ -14,7 +14,7 @@ const compression = require("compression");
 const helmet = require("helmet");
 
 // ***********************************************************************************************
-const dotenv = require("dotenv").config();
+// const dotenv = require("dotenv").config();
 // The above line does not appear in the mdn tutorial code
 // ***********************************************************************************************
 
