@@ -9,6 +9,7 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const catalogRouter = require("./routes/catalog"); //import routes for "catalog" area of site
+
 const compression = require("compression");
 const helmet = require("helmet");
 
@@ -29,6 +30,41 @@ const limiter = RateLimit({
 // Apply rate limiter to all requests
 app.use(limiter);
 
+// **********************************************************************************************************************************************************
+// Our code below is intentionally slightly different that the example.
+// Since our development and production databases are both in the same mongoDB cluster, they both share the same password and we don't want to upload that to git.
+// Both URI's are stored in environment variables and the appropriate one is used based on what mode is set.
+// **********************************************************************************************************************************************************
+
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+let mongoDB;
+if (process.env.STATUS === "development") {
+  console.log(`Using development database`);
+  mongoDB = process.env.DEV_URI;
+} else if (process.env.STATUS === "production") {
+  console.log(`Using production database`);
+  mongoDB = process.env.PROD_URI;
+} else {
+  console.log(error);
+  console.log("process.env.STATUS is neither development or production.");
+}
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+}
+
+// Use our app object to set up the view (template) engine
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
+
+// These functions add the middleware libraries that we imported above into the request handling chain.
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 // Add helmet to the middleware chain.
 // Set CSP headers to allow our Bootstrap and Jquery to be served
 app.use(
@@ -38,10 +74,7 @@ app.use(
     },
   })
 );
-
-//
-
-// *********************************************************************************************************
+// **********************************************************************************************************************************************************
 // We're getting an error related to helmet's contentSecurityPolicy (csp). Below is my attempt to turn that feature off, it didn't work. Still got the same error.
 // Since this is the only error we're getting I think it's why it won't deploy on glitch.
 // If we fix this and it still won't deploy then perhaps we try railway.
@@ -49,7 +82,6 @@ app.use(
 // Error isn't consistent? for a while it was only showing in "all authors" page. ???
 // When using chrome the error is:
 // Unchecked runtime.lastError: The message port closed before a response was received
-
 // From the debugger:
 // Error while fetching an original source: unsupported protocol for sourcemap request webpack:///src/contentScripts/prepareInjection.js
 
@@ -70,51 +102,7 @@ app.use(
 //     },
 //   })
 // );
-
 // **********************************************************************************************************************************************************
-
-// Connection string template for Odin cluster:
-// mongodb+srv://kevinfboutilier:<password>@firstcluster.busyfol.mongodb.net/<database>?retryWrites=true&w=majority&appName=firstCluster
-
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
-let mongoDB;
-if (process.env.STATUS === "development") {
-  console.log(`Using development database`);
-  mongoDB = process.env.DEV_URI;
-} else if (process.env.STATUS === "production") {
-  console.log(`Using production database`);
-  mongoDB = process.env.PROD_URI;
-} else {
-  console.log(error);
-  console.log("process.env.STATUS is neither development or production.");
-}
-
-// const mongoDB = process.env.MONGODB_URI || dev_db_url;
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect(mongoDB);
-}
-// **********************************************************************************************************************************************************
-// So what they want me to do next is create a new database for production and store it's connection string in the ".env" file accessible on glitch.
-// That way, the production code isn't here in this repository, it's safely stored on glitch.
-// The code above says: If we have a prduction database, use data from that. Otherwise, here's our unencrypted development connection string.
-
-// **********************************************************************************************************************************************************
-
-// Use our app object to set up the view (template) engine
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
-
-// These functions add the middleware libraries that we imported above into the request handling chain.
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-
-// This is where the helmet code is called in the example
-
 
 app.use(compression()); // Compress all routes
 
