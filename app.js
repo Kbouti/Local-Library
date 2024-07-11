@@ -102,6 +102,23 @@ app.use(
 //     },
 //   })
 // );
+
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+//       "script-src-elem": "false",
+//     },
+//   })
+// );
+
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     directives: {
+//       "script-src": ["code.jquery.com", "cdn.jsdelivr.net"],
+//     },
+//   })
+// );
 // **********************************************************************************************************************************************************
 
 app.use(compression()); // Compress all routes
