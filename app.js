@@ -14,6 +14,8 @@ const compression = require("compression");
 const helmet = require("helmet");
 
 const common = require("./node_modules/common")
+// app.use(common())
+// Trying to 'use' common ^above breaks the app
 
 // ***********************************************************************************************
 const dotenv = require("dotenv").config();
