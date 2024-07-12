@@ -51,9 +51,11 @@ mongoose.set("strictQuery", false);
 let mongoDB;
 if (process.env.STATUS === "development") {
   console.log(`Using development database`);
+  console.log(`port = ${process.env.DEV_PORT}`);
   mongoDB = process.env.DEV_URI;
 } else if (process.env.STATUS === "production") {
   console.log(`Using production database`);
+  console.log(`port = ${process.env.PROD_PORT}`);
   mongoDB = process.env.PROD_URI;
 } else {
   console.log(error);
