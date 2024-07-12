@@ -25,6 +25,12 @@ const dotenv = require("dotenv").config();
 // Finally create the app object
 const app = express();
 
+// The below is to troubleshoot proxy issues interfering with the rate limiter working correctly. 
+app.set('trust proxy', 1);
+// app.get('/ip', (request, response) => response.send(request.ip));
+
+
+
 // Set up rate limiter: maximum of twenty requests per minute
 const RateLimit = require("express-rate-limit");
 const limiter = RateLimit({
