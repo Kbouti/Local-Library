@@ -13,21 +13,32 @@ const catalogRouter = require("./routes/catalog"); //import routes for "catalog"
 const compression = require("compression");
 const helmet = require("helmet");
 
+
+// ************************************************************************************************************************************************************************************************************
 const common = require("./node_modules/common")
 // app.use(common())
-// Trying to 'use' common ^above breaks the app
+// Trying to 'use' common ^above breaks the app.  At the moment the app is working and deployed. I can't remember where I was seeing the error that said common was missing, but it doesn't seem to be visible now so we'll leave as is. 
+// ************************************************************************************************************************************************************************************************************
 
-// ***********************************************************************************************
+
 const dotenv = require("dotenv").config();
-// The above line does not appear in the mdn tutorial code, but is necessary to read from the .env file
-// ***********************************************************************************************
+// The above line is necessary to read from the .env file
 
 // Finally create the app object
 const app = express();
 
+
+// ************************************************************************************************************************************************************************************************************
 // The below is to troubleshoot proxy issues interfering with the rate limiter working correctly. 
+// I believe this is the issue resulting in the Content-Security-Policy error in the client side console. 
+// We were suggested to attempt the following: 
+// https://github.com/express-rate-limit/express-rate-limit/wiki/Troubleshooting-Proxy-Issues
+
+// We still have not fixed this issue. I tried 1-15 and did not return a match to my ip address.
 app.set('trust proxy', 1);
 // app.get('/ip', (request, response) => response.send(request.ip));
+// app.get('/x-forwarded-for', (request, response) => response.send(request.headers['x-forwarded-for']))
+// ************************************************************************************************************************************************************************************************************
 
 
 
@@ -44,8 +55,6 @@ app.use(limiter);
 // Our code below is intentionally slightly different that the example.
 // Since our development and production databases are both in the same mongoDB cluster, they both share the same password and we don't want to upload that to git.
 // Both URI's are stored in environment variables and the appropriate one is used based on what mode is set.
-// **********************************************************************************************************************************************************
-
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 let mongoDB;
@@ -61,6 +70,8 @@ if (process.env.STATUS === "development") {
   console.log(error);
   console.log("process.env.STATUS is neither development or production.");
 }
+// **********************************************************************************************************************************************************
+
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -77,6 +88,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
+// **********************************************************************************************************************************************************
 // Add helmet to the middleware chain.
 // Set CSP headers to allow our Bootstrap and Jquery to be served
 app.use(
@@ -86,19 +99,9 @@ app.use(
     },
   })
 );
-// **********************************************************************************************************************************************************
 // We're getting an error related to helmet's contentSecurityPolicy (csp). Below is my attempt to turn that feature off, it didn't work. Still got the same error.
-// Since this is the only error we're getting I think it's why it won't deploy on glitch.
-// If we fix this and it still won't deploy then perhaps we try railway.
-// **NOTE:**
-// Error isn't consistent? for a while it was only showing in "all authors" page. ???
-// When using chrome the error is:
-// Unchecked runtime.lastError: The message port closed before a response was received
-// From the debugger:
-// Error while fetching an original source: unsupported protocol for sourcemap request webpack:///src/contentScripts/prepareInjection.js
 
 // Things I tried but that didn't work:
-
 // app.use(helmet())
 
 // app.use(
@@ -160,7 +163,3 @@ app.use(function (err, req, res, next) {
 
 module.exports = app;
 
-//  ************************************************************************************************************************************************************************
-// OLD Connection string for mongoDB:
-// mongodb+srv://kevinfboutilier:AMRPU6oe0Zv8fCKW@locallibrary.o1xynnt.mongodb.net/?retryWrites=true&w=majority&appName=localLibrary
-//  ************************************************************************************************************************************************************************
