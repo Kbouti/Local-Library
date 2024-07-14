@@ -41,6 +41,15 @@ app.set('trust proxy', 1);
 // ************************************************************************************************************************************************************************************************************
 
 
+// ************************************************************************************************************************************************************************************************************
+// The other major issue is that when I try to run the  app in the server (npm run devstart in glitch terminal) I get the message app crashed, pipe 3000 already in use. 
+// Pipe is apparently another term for port. We were suggested to run lsof -i :3000 but the response was "lsof: command not found"
+
+// ^^Gotta figure out this port 3000 issue
+// ************************************************************************************************************************************************************************************************************
+
+
+
 
 // Set up rate limiter: maximum of twenty requests per minute
 const RateLimit = require("express-rate-limit");
